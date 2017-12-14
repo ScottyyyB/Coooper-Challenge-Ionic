@@ -24,10 +24,10 @@ RSpec.describe Api::V1::PerformanceDataController, type: :request do
       expect(response_json['entries'].count).to eq 5
     end
 
-    it 'returns a collection of performance data for the correct user' do
+    it 'returns performance data for the correct user' do
       get '/api/v1/performance_data', headers: headers
-      user.performance_data.each do |performance_data|
-        expect(performance_data.data['message']).to eq 'Average'
+      PerformanceData.all.each do |performance_data|
+        expect(performance_data.user_id).to eq user.id
       end
     end
   end
